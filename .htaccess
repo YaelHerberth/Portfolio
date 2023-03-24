@@ -1,0 +1,10 @@
+RewriteEngine ON
+ 
+RewriteCond %{'REQUEST_FILENAME'} !-f
+RewriteCond %{'REQUEST_FILENAME'}\.php -f
+
+RewriteRule ^Home$ index.php
+RewriteRule ^404$ vistas/404.php
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+Options -Indexes
