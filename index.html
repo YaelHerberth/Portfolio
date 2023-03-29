@@ -11,6 +11,9 @@
     <!--==================== SWIPER CSS ====================-->
     <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
 
+    <!--==================== SWEETALERT CSS ====================-->
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
+
     <!--==================== CSS ====================-->
     <link rel="stylesheet" href="assets/css/styles.css">
 
@@ -21,7 +24,7 @@
     <!--==================== HEADER ====================-->
     <header class="header" id="header">
         <nav class="nav container">
-            <a href="" class="nav__logo">Yael</a>
+            <a href="" class="nav__logo">Yael Sánchez Herberth</a>
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list grid">
@@ -702,25 +705,26 @@
                     </div>
                 </div>
 
-                <form action="" class="contact__form grid">
+                <form action="" class="contact__form grid" onsubmit="sendEmail(); reset(); return false;">
                     <div class="contact__inputs grid">
                         <div class="contact__content">
                             <label for="" class="contact__label">Nombre</label>
-                            <input type="text" class="contact__input">
+                            <input type="text" class="contact__input" id="txt_nombre" required>
                         </div>
                         <div class="contact__content">
                             <label for="" class="contact__label">Correo</label>
-                            <input type="email" class="contact__input">
+                            <input type="email" class="contact__input" id="txt_correo" required>
                         </div>
                     </div>
                     <div class="contact__content">
                         <label for="" class="contact__label">Mensaje</label>
-                        <textarea name="" id="" cols="30" rows="10" class="contact__input"></textarea>
+                        <textarea id="txt_mensaje" cols="30" rows="10" class="contact__input" required></textarea>
                     </div>
                     <div>
-                        <a role="button" class="button button--flex" type="submit">Enviar Mensaje <i
-                                class="uil uil-message button__icon"></i></a>
+                        <button class="button button--flex" id="btn" type="submit">Enviar Mensaje <i
+                                class="uil uil-message button__icon"></i></button>
                     </div>
+                    <!-- <button type="submit" onclick="sendEmail()">enviar</button> -->
                 </form>
             </div>
         </section>
@@ -766,6 +770,33 @@
 
     <!--==================== SWIPER JS ====================-->
     <script src="assets/js/swiper-bundle.min.js"></script>
+
+    <!--==================== SMTP JS ====================-->
+    <script src="assets/js/smtp.js"></script>
+    <!--==================== SWEETALERT CSS ====================-->
+    <script src="assets/js/sweetalert2.all.min.js"></script>
+    <script>
+        function sendEmail() {
+            const nombre = document.getElementById('txt_nombre').value;
+            const correo = document.getElementById('txt_correo').value;
+            const mensaje = document.getElementById('txt_mensaje').value;
+            const mensajeC = 'Nombre: ' + nombre + '<br> Correo: ' + correo + '<br> Mensaje: ' + mensaje
+            Email.send({
+                SecureToken: "e6469538-7d85-4b24-9313-bee0960bfd06",
+                To: 'yael.herberth@gmail.com',
+                From: "derp.yael@gmail.com",
+                Subject: "Correo de portafolio YaelHerbert",
+                Body: mensajeC
+            }).then(
+                message => console.log(message),
+                Swal.fire(
+                    '¡Gracias por el interes!',
+                    'Te contactare lo mas rapido posible ^^',
+                    'success'
+                )
+            );
+        }
+    </script>
 
     <!--==================== MAIN JS ====================-->
     <script src="assets/js/main.js"></script>
